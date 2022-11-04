@@ -20,10 +20,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--News App Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Your_news_today" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="NewsAppController" customModule="Your_news_today" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,13 +35,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="380" height="100"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TERÇA FERIA, JUNHO 6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-YR-LxJ">
-                                                <rect key="frame" x="0.0" y="10" width="380" height="24.5"/>
+                                                <rect key="frame" x="0.0" y="10" width="380" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="20"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minhas notícias" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbn-2t-OZc">
-                                                <rect key="frame" x="0.0" y="44.5" width="380" height="36.5"/>
+                                                <rect key="frame" x="0.0" y="43.5" width="380" height="35"/>
                                                 <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -68,13 +68,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" image="newspaper" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Jgl-ZT-RhV">
-                                                <rect key="frame" x="257" y="37.5" width="53" height="55"/>
+                                                <rect key="frame" x="257" y="37.5" width="58" height="55"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="55" id="k7D-VD-Ks2"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbO-Ah-pya">
-                                                <rect key="frame" x="350" y="46" width="13" height="38"/>
+                                                <rect key="frame" x="350.5" y="46" width="12.5" height="38"/>
                                                 <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -94,7 +94,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="28" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2Y-5w-YXi">
-                                                                <rect key="frame" x="31.5" y="22.5" width="38.5" height="18.5"/>
+                                                                <rect key="frame" x="31.5" y="23" width="38.5" height="17.5"/>
                                                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -123,7 +123,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHc-gq-w4a">
-                                                                <rect key="frame" x="31" y="22.5" width="39" height="18.5"/>
+                                                                <rect key="frame" x="31" y="23" width="39" height="17.5"/>
                                                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -171,7 +171,7 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="64" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K6-7B-30f">
-                                                <rect key="frame" x="320" y="46" width="27" height="38"/>
+                                                <rect key="frame" x="325" y="46" width="22.5" height="38"/>
                                                 <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -204,7 +204,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="380" height="592"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellNews" id="4Zs-wa-puS">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellNews" id="4Zs-wa-puS" customClass="NewsTableViewCell" customModule="Your_news_today" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="50" width="380" height="60.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Zs-wa-puS" id="Xwv-34-6JG">
@@ -218,7 +218,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEd-bZ-SJy">
-                                                                    <rect key="frame" x="10" y="32" width="81" height="18.5"/>
+                                                                    <rect key="frame" x="10" y="32" width="76.5" height="18.5"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="18.5" id="DbD-uJ-d16"/>
                                                                     </constraints>
@@ -250,8 +250,17 @@
                                                                 <constraint firstItem="C3p-Ga-Dyt" firstAttribute="top" secondItem="Xwv-34-6JG" secondAttribute="top" constant="10" id="zcW-yL-7Kc"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="imgNews" destination="rSC-Rl-AT1" id="ZSn-5h-GCO"/>
+                                                            <outlet property="labDescription" destination="OEd-bZ-SJy" id="OmS-VH-ugN"/>
+                                                            <outlet property="labTitle" destination="C3p-Ga-Dyt" id="wxX-29-n9A"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="lP3-rV-uhZ"/>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="fP2-BU-C0R"/>
+                                                </connections>
                                             </tableView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -284,6 +293,14 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MKH-x5-sMr" secondAttribute="trailing" constant="17" id="WP1-wl-veb"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="labCity" destination="BiU-3C-pTr" id="R84-Fn-FcX"/>
+                        <outlet property="labDayMonth" destination="Dce-YR-LxJ" id="O9F-hJ-KyT"/>
+                        <outlet property="labHumidity" destination="XHc-gq-w4a" id="gwH-EH-3fk"/>
+                        <outlet property="labTemperature" destination="9K6-7B-30f" id="gQI-O1-CUe"/>
+                        <outlet property="labWind" destination="U9C-Lm-QLp" id="91Y-OL-vfT"/>
+                        <outlet property="temperatureMax" destination="k2Y-5w-YXi" id="9xp-n6-gK7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

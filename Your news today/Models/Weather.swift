@@ -10,7 +10,7 @@ import Foundation
 struct Weather:Decodable {
 	let main: Main
 	let wind: Wind
-	let weather: WeatherMoreInformation
+	let weather: [WeatherMoreInformation]
 	
 }
 

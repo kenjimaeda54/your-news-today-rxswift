@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreLocation
+import RxSwift
+import RxCocoa
 
 class NewsAppController: UIViewController {
 	
@@ -20,6 +22,10 @@ class NewsAppController: UIViewController {
 	
 	//MARK: - Vars
 	var locationManager = CLLocationManager()
+	var latitude: CLLocationDegrees = 0.0;
+	var longitude: CLLocationDegrees = 0.0;
+	var apikeyWeather: String?
+	var disposed = DisposeBag()
 	
 	//url de imagens
 	//http://openweathermap.org/img/wn/<codigo>@2x.png
@@ -28,19 +34,38 @@ class NewsAppController: UIViewController {
 		super.viewDidLoad()
 		locationManager.delegate = self
 		
-		// Do any additional setup after loading the view.
+		
+		if let keyWeahter = ProcessInfo.processInfo.environment["API_KEY_WEATHER"] {
+			apikeyWeather = keyWeahter;
+		}
+		
 		populetedView()
 		
 		
 		locationManager.requestAlwaysAuthorization()
-		
 		locationManager.requestLocation()
 	}
 	
 	func populetedView() {
 		
+		if let key = apikeyWeather {
+			
+			let url = URL(string:
+											"https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&units=metric&appid=\(key)")!
+			
+			let resource = Resource<Weather>(url: url)
+			
+			//se nao conseguir instanciar a funcao pode ser falta do static
+			URLRequest.load(resource).subscribe(onNext:{ response in
+				print(response)
+			}).disposed(by: disposed)
+			
+		}
 		
 	}
+	
+	
+	
 	
 	
 }
@@ -66,8 +91,8 @@ extension NewsAppController: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		
 		if let location = locations.last {
-			let latitude = location.coordinate.latitude
-			let longitude = location.coordinate.longitude
+			latitude = location.coordinate.latitude
+			longitude = location.coordinate.longitude
 			
 			
 			//para pegar address
@@ -78,7 +103,7 @@ extension NewsAppController: CLLocationManagerDelegate {
 			coordinate.latitude = latitude
 			coordinate.longitude = longitude
 			
-			var location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+			let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 			
 			geocoder.reverseGeocodeLocation(location) { placemarks, error in
 				
@@ -90,13 +115,13 @@ extension NewsAppController: CLLocationManagerDelegate {
 						guard let city = pm.locality, let state = pm.administrativeArea else {return}
 						
 						self.labCity.text = "\(city), \(state)"
-						print(pm.country) // pais
-						print(pm.locality) // cidade
-						print(pm.subLocality) // bairro
-						print(pm.administrativeArea)// estado
-				
+						//						print(pm.country) // pais
+						//						print(pm.locality) // cidade
+						//						print(pm.subLocality) // bairro
+						//						print(pm.administrativeArea)// estado
+						
 					}
-				
+					
 				}else {
 					
 					print(error?.localizedDescription)
@@ -106,7 +131,6 @@ extension NewsAppController: CLLocationManagerDelegate {
 			}
 			
 			locationManager.stopUpdatingLocation()
-			
 			
 		}
 		

@@ -48,8 +48,10 @@ class NewsAppController: UIViewController {
 		//Privacy - Location Always and When In Use Usage Description
 		
 		//Privacy - Location When In Use Usage Description
-		locationManager.requestAlwaysAuthorization()
+		locationManager.requestWhenInUseAuthorization()
 		locationManager.requestLocation()
+		locationManager.startUpdatingLocation()
+		
 	}
 	
 	func populetedViewWeather(latitude: CLLocationDegrees,longitude: CLLocationDegrees) {
@@ -79,9 +81,9 @@ class NewsAppController: UIViewController {
 	
 	func preapareViewWeather(_ response: Weather)  {
 		
-		labWind.text = String(format: "%.0f",response.wind.speed)
+		labWind.text = "\(String(format: "%.0f",response.wind.speed))m/s"
 		labHumidity.text =  String(format: "%.0f",response.main.humidity)
-		labTemperature.text = "\(String(format: "%.0f",response.main.temp))"
+		labTemperature.text = String(format: "%.0f",response.main.temp)
 		labTemperatureMax.text = String(format: "%.0f",response.main.tempMax)
 		
 		//precisas aidcionar no info plist securty

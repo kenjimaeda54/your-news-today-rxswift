@@ -23,13 +23,10 @@ class NewsAppController: UIViewController {
 	
 	//MARK: - Vars
 	var locationManager = CLLocationManager()
-	var latitude: CLLocationDegrees = 0.0;
-	var longitude: CLLocationDegrees = 0.0;
 	var apikeyWeather: String?
 	var disposed = DisposeBag()
 	
-	//url de imagens
-	//
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -40,14 +37,17 @@ class NewsAppController: UIViewController {
 			apikeyWeather = keyWeahter;
 		}
 		
-		populetedView()
 		
 		
+		//precisa passar no info PLIST
+		//Privacy - Location Always and When In Use Usage Description
+		
+		//Privacy - Location When In Use Usage Description
 		locationManager.requestAlwaysAuthorization()
 		locationManager.requestLocation()
 	}
 	
-	func populetedView() {
+	func populetedViewWeather(latitude: CLLocationDegrees,longitude: CLLocationDegrees) {
 		
 		if let key = apikeyWeather {
 			
@@ -63,7 +63,7 @@ class NewsAppController: UIViewController {
 					self.preapareViewWeather(response)
 				}
 				
-		
+				
 				
 			}).disposed(by: disposed)
 			
@@ -73,23 +73,32 @@ class NewsAppController: UIViewController {
 	
 	
 	func preapareViewWeather(_ response: Weather)  {
-
+		
 		labWind.text = "\(response.wind.speed)"
 		labHumidity.text = "\(response.main.humidity)"
 		labTemperature.text = "\(response.main.temp)"
 		labTemperatureMax.text = "\(response.main.tempMax)"
 		
+		//precisas aidcionar no info plist securty
+		//referencia https://stackoverflow.com/questions/24016142/how-to-make-http-request-in-swift
+		
+		//<key>NSAppTransportSecurity</key>
+		//		<dict>
+		//			<key>NSAllowsArbitraryLoads</key>
+		//			<true/>
+		//	</dict>
+		
+		
 		//referencia
 		//https://cocoacasts.com/fm-3-download-an-image-from-a-url-in-swift
-		let urlImgData = URL(string:"http://openweathermap.org/img/wn/\(response.weather[0].icon)@2x.png")!
+		let imgData = URL(string:"http://openweathermap.org/img/wn/\(response.weather[0].icon)@2x.png")!
 		
 		DispatchQueue.global().async {
 			
-			if let img = try? Data(contentsOf: urlImgData) {
+			if let data = try? Data(contentsOf: imgData) {
+				
 				DispatchQueue.main.async {
-					
-					self.imgIconWeather.image = UIImage(data: img);
-					
+					self.imgIconWeather.image = UIImage(data: data)
 				}
 				
 			}
@@ -97,7 +106,6 @@ class NewsAppController: UIViewController {
 		}
 		
 	}
-	
 	
 }
 
@@ -122,8 +130,8 @@ extension NewsAppController: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		
 		if let location = locations.last {
-			latitude = location.coordinate.latitude
-			longitude = location.coordinate.longitude
+			let latitude = location.coordinate.latitude
+			let longitude = location.coordinate.longitude
 			
 			
 			//para pegar address
@@ -160,7 +168,9 @@ extension NewsAppController: CLLocationManagerDelegate {
 				}
 				
 			}
-			
+		
+			//assim garanto que sera sempre chamado so apos pegar a latitude e longitude
+			populetedViewWeather(latitude: latitude, longitude: longitude)
 			locationManager.stopUpdatingLocation()
 			
 		}

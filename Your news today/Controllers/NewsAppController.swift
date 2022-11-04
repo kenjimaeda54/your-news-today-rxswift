@@ -32,7 +32,7 @@ class NewsAppController: UIViewController {
 		populetedView()
 		
 		
-		locationManager.requestWhenInUseAuthorization()
+		locationManager.requestAlwaysAuthorization()
 		
 		locationManager.requestLocation()
 	}
@@ -73,32 +73,39 @@ extension NewsAppController: CLLocationManagerDelegate {
 			//para pegar address
 			//referencia
 			//https://stackoverflow.com/questions/41358423/swift-generate-an-address-format-from-reverse-geocoding
-			var center = CLLocationCoordinate2D()
+			var coordinate = CLLocationCoordinate2D()
 			let geocoder = CLGeocoder()
-			center.latitude = latitude
-			center.longitude = longitude
+			coordinate.latitude = latitude
+			coordinate.longitude = longitude
 			
-			let loc = CLLocation(latitude: center.latitude, longitude: center.longitude)
+			var location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 			
-			geocoder.reverseGeocodeLocation(loc) { placekmarks, error in
+			geocoder.reverseGeocodeLocation(location) { placemarks, error in
+				
 				if error == nil {
-					let pm = placekmarks! as [CLPlacemark]
+					let pm = placemarks! as [CLPlacemark]
 					
-					if pm.count > 0 {
-						let pm = placekmarks![0]
+					if pm.count > 0  {
+						let pm = placemarks![0]
+						guard let city = pm.locality, let state = pm.administrativeArea else {return}
+						
+						self.labCity.text = "\(city), \(state)"
 						print(pm.country) // pais
 						print(pm.locality) // cidade
 						print(pm.subLocality) // bairro
 						print(pm.administrativeArea)// estado
-						
+				
 					}
+				
+				}else {
+					
+					print(error?.localizedDescription)
 					
 				}
+				
 			}
 			
-			
-			locationManager.stopUpdatingLocation();
-			
+			locationManager.stopUpdatingLocation()
 			
 			
 		}

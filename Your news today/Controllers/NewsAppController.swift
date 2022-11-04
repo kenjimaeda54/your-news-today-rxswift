@@ -15,9 +15,10 @@ class NewsAppController: UIViewController {
 	//MARK: - IBOutlet
 	@IBOutlet weak var labWind: UILabel!
 	@IBOutlet weak var labHumidity: UILabel!
-	@IBOutlet weak var temperatureMax: UILabel!
+	@IBOutlet weak var labTemperatureMax: UILabel!
 	@IBOutlet weak var labTemperature: UILabel!
 	@IBOutlet weak var labDayMonth: UILabel!
+	@IBOutlet weak var imgIconWeather: UIImageView!
 	@IBOutlet weak var labCity: UILabel!
 	
 	//MARK: - Vars
@@ -28,7 +29,7 @@ class NewsAppController: UIViewController {
 	var disposed = DisposeBag()
 	
 	//url de imagens
-	//http://openweathermap.org/img/wn/<codigo>@2x.png
+	//
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -56,8 +57,14 @@ class NewsAppController: UIViewController {
 			let resource = Resource<Weather>(url: url)
 			
 			//se nao conseguir instanciar a funcao pode ser falta do static
-			URLRequest.load(resource).subscribe(onNext:{ response in
-				print(response)
+			URLRequest.load(resource).subscribe(onNext:{[self]response in
+				
+				DispatchQueue.main.async {
+					self.preapareViewWeather(response)
+				}
+				
+		
+				
 			}).disposed(by: disposed)
 			
 		}
@@ -65,7 +72,31 @@ class NewsAppController: UIViewController {
 	}
 	
 	
-	
+	func preapareViewWeather(_ response: Weather)  {
+
+		labWind.text = "\(response.wind.speed)"
+		labHumidity.text = "\(response.main.humidity)"
+		labTemperature.text = "\(response.main.temp)"
+		labTemperatureMax.text = "\(response.main.tempMax)"
+		
+		//referencia
+		//https://cocoacasts.com/fm-3-download-an-image-from-a-url-in-swift
+		let urlImgData = URL(string:"http://openweathermap.org/img/wn/\(response.weather[0].icon)@2x.png")!
+		
+		DispatchQueue.global().async {
+			
+			if let img = try? Data(contentsOf: urlImgData) {
+				DispatchQueue.main.async {
+					
+					self.imgIconWeather.image = UIImage(data: img);
+					
+				}
+				
+			}
+			
+		}
+		
+	}
 	
 	
 }

@@ -20,6 +20,7 @@ class NewsAppController: UIViewController {
 	@IBOutlet weak var labDayMonth: UILabel!
 	@IBOutlet weak var imgIconWeather: UIImageView!
 	@IBOutlet weak var labCity: UILabel!
+	@IBOutlet weak var viewWeather: UIView!
 	
 	//MARK: - Vars
 	var locationManager = CLLocationManager()
@@ -32,6 +33,10 @@ class NewsAppController: UIViewController {
 		super.viewDidLoad()
 		locationManager.delegate = self
 		
+		viewWeather.layer.cornerRadius = 7
+		viewWeather.layer.shadowOffset.height = 4
+		viewWeather.layer.shadowColor = UIColor.black.cgColor
+		viewWeather.layer.shadowOpacity = 0.5
 		
 		if let keyWeahter = ProcessInfo.processInfo.environment["API_KEY_WEATHER"] {
 			apikeyWeather = keyWeahter;
@@ -74,10 +79,10 @@ class NewsAppController: UIViewController {
 	
 	func preapareViewWeather(_ response: Weather)  {
 		
-		labWind.text = "\(response.wind.speed)"
-		labHumidity.text = "\(response.main.humidity)"
-		labTemperature.text = "\(response.main.temp)"
-		labTemperatureMax.text = "\(response.main.tempMax)"
+		labWind.text = String(format: "%.0f",response.wind.speed)
+		labHumidity.text =  String(format: "%.0f",response.main.humidity)
+		labTemperature.text = "\(String(format: "%.0f",response.main.temp))"
+		labTemperatureMax.text = String(format: "%.0f",response.main.tempMax)
 		
 		//precisas aidcionar no info plist securty
 		//referencia https://stackoverflow.com/questions/24016142/how-to-make-http-request-in-swift

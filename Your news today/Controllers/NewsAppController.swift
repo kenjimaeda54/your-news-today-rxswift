@@ -40,6 +40,18 @@ class NewsAppController: UIViewController {
 		viewWeather.layer.shadowOffset.height = 4
 		viewWeather.layer.shadowColor = UIColor.black.cgColor
 		viewWeather.layer.shadowOpacity = 0.5
+	
+		let dateWithoutFormated = Date()
+		if #available(iOS 15.0, *) {
+			
+			let dateFormated = dateWithoutFormated.formatted(date: .complete, time: .omitted).split(separator:  " ")
+			
+			labDayMonth.text = "\(dateFormated[0].capitalized) \(dateFormated[3].capitalized) \(dateFormated[1])"
+
+		} else {
+			labDayMonth.text = "Need update your iphone to version 15"
+		}
+		
 		
 		if let keyWeahter = ProcessInfo.processInfo.environment["API_KEY_WEATHER"] {
 			apikeyWeather = keyWeahter;

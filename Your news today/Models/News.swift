@@ -8,11 +8,11 @@
 import Foundation
 
 struct News: Decodable  {
-	let articles: [Articles]	
+	let articles: [Articles]
 }
 
 struct Articles: Decodable {
 	let title: String
-	let description: String
-	let urlToImage: String
+	let description: String?
+	let urlToImage: String?
 }

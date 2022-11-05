@@ -27,6 +27,7 @@ class NewsAppController: UIViewController {
 	//MARK: - Vars
 	var locationManager = CLLocationManager()
 	var apikeyWeather: String?
+	var apikeyNews: String?
 	var disposed = DisposeBag()
 	
 	
@@ -34,29 +35,21 @@ class NewsAppController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		locationManager.delegate = self
-	
-		activyIsLoading.startAnimating()
-		viewWeather.layer.cornerRadius = 7
-		viewWeather.layer.shadowOffset.height = 4
-		viewWeather.layer.shadowColor = UIColor.black.cgColor
-		viewWeather.layer.shadowOpacity = 0.5
-	
-		let dateWithoutFormated = Date()
-		if #available(iOS 15.0, *) {
-			
-			let dateFormated = dateWithoutFormated.formatted(date: .complete, time: .omitted).split(separator:  " ")
-			
-			labDayMonth.text = "\(dateFormated[0].capitalized) \(dateFormated[3].capitalized) \(dateFormated[1])"
-
-		} else {
-			labDayMonth.text = "Need update your iphone to version 15"
-		}
 		
 		
+	  //MARK: - Environment
 		if let keyWeahter = ProcessInfo.processInfo.environment["API_KEY_WEATHER"] {
 			apikeyWeather = keyWeahter;
 		}
 		
+		
+		if let keyNews = ProcessInfo.processInfo.environment["API_KEY_NEWS"] {
+			apikeyNews = keyNews;
+		}
+		
+		
+    prepareViewInitial()
+		populetedViewNews()
 		
 		
 		//precisa passar no info PLIST
@@ -68,6 +61,45 @@ class NewsAppController: UIViewController {
 		locationManager.startUpdatingLocation()
 		
 	}
+	
+	func prepareViewInitial() {
+		
+		activyIsLoading.startAnimating()
+		viewWeather.layer.cornerRadius = 7
+		viewWeather.layer.shadowOffset.height = 4
+		viewWeather.layer.shadowColor = UIColor.black.cgColor
+		viewWeather.layer.shadowOpacity = 0.5
+		
+		let dateWithoutFormated = Date()
+		if #available(iOS 15.0, *) {
+			
+			let dateFormated = dateWithoutFormated.formatted(date: .complete, time: .omitted).split(separator:  " ")
+			
+			labDayMonth.text = "\(dateFormated[0].capitalized) \(dateFormated[3]) \(dateFormated[1])"
+			
+		} else {
+			labDayMonth.text = "Need update your iphone to version 15"
+		}
+		
+	}
+	
+	func populetedViewNews() {
+		
+		if let key = apikeyNews {
+			
+			let urlRequest = URL(string: "https://newsapi.org/v2/top-headlines?country=br&apiKey=\(key)")!
+			
+			let resource = Resource<News>(url: urlRequest)
+			
+			
+			URLRequest.load(resource).subscribe(onNext:{ response in
+				print(response.articles)
+			}).disposed(by: disposed)
+			
+		}
+		
+	}
+	
 	
 	func populetedViewWeather(latitude: CLLocationDegrees,longitude: CLLocationDegrees) {
 		
@@ -192,7 +224,7 @@ extension NewsAppController: CLLocationManagerDelegate {
 				}
 				
 			}
-		
+			
 			//assim garanto que sera sempre chamado so apos pegar a latitude e longitude
 			populetedViewWeather(latitude: latitude, longitude: longitude)
 			locationManager.stopUpdatingLocation()

@@ -56,6 +56,11 @@
             value = "0f71147fe73f64e20493b89e3e439636"
             isEnabled = "YES">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "API_KEY_NEWS"
+            value = "e03da12b408445449464ceb16db4963a"
+            isEnabled = "YES">
+         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction

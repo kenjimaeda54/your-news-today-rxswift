@@ -1,13 +1,13 @@
-# Seu guia de noticias
-Simples app com noticiais atuais e a condições do tempo
+# Seu guia de notícias
+Simples APP com noticiais atuais e a condições do tempo
 
-# Motivacao
-Reforcar conceitos de RxSwift e MVVM
+# Motivação
+Reforçar conceitos de RxSwift e MVVM
 
 ## Features 
-- Para obter a imagem atravez de um link dentro de uma requisicao pode usar o data atraves da url
+- Para obter a imagem através de um link em uma  requisição pode usar o data 
 - [Referencia](https://cocoacasts.com/fm-3-download-an-image-from-a-url-in-swift)
-- Exemplo abaixo foi feito em http para isto e neessario adicionar permissao no [info.plist](https://stackoverflow.com/questions/24016142/how-to-make-http-request-in-swift)
+- Exemplo abaixo foi feito em http para isto e necessário adicionar permissão no [info.plist](https://stackoverflow.com/questions/24016142/how-to-make-http-request-in-swift)
 
 ```swift
 		let imgData = URL(string:"http://openweathermap.org/img/wn/\(response.weather[0].icon)@2x.png")!
@@ -28,10 +28,10 @@ Reforcar conceitos de RxSwift e MVVM
 
 ```
 ##
-- Para obter o endreco do usuario de forma amigavel pode usar o metodo abaixo
+- Para obter o endereço do usuário de forma amigável pode usar o método abaixo
 - Precisei usar o objeto CLLocationManager() e implementar seu delegate
 - [Referencia](https://stackoverflow.com/questions/41358423/swift-generate-an-address-format-from-reverse-geocoding)
-- Para usar esse metodo precisa tambem adicionar no info plist duas permissoes abaixo o nome
+- Para usar esse método precisa também adicionar no info plist duas permissões estão no exemplo
 
 ```swift
 	var locationManager = CLLocationManager()
@@ -109,9 +109,9 @@ extension NewsAppController: CLLocationManagerDelegate {
 ```
 
 ##
-- Por fim usei variaveis de ambientes assim projeto minhas as API key
+- Por fim usei variáveis de ambientes assim projeto minhas as API key
 - Como acessar seu [edit scheme](https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/iOS_Simulator_Guide/CustomizingYourExperienceThroughXcodeSchemes/CustomizingYourExperienceThroughXcodeSchemes.html)
-- Como implementar as [variaveis](https://www.swiftdevjournal.com/using-environment-variables-in-swift-apps/) 
+- Como implementar as [variáveis](https://www.swiftdevjournal.com/using-environment-variables-in-swift-apps/) 
 
 ```swift
 
@@ -129,7 +129,7 @@ extension NewsAppController: CLLocationManagerDelegate {
 
 ```
 ##
-- Swift nao aceuita hiffen nas vaviaveis decodable para resolver este problema usei CodingKeys
+- Swift não aceita hiffen nas variáveis decodable para resolver este problema usei CodingKeys
 
 ```swift
 

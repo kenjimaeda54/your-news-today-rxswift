@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 struct NewsViewModel {
-
+	
 	let article: Articles
 	
 	init(_ article: Articles) {
@@ -19,9 +19,9 @@ struct NewsViewModel {
 	
 }
 
-extension NewsViewModel {
+extension NewsViewModel   {
 	
-	var title: Observable<String> {
+	var title: Observable<String>  {
 		return  Observable.just(article.title)
 	}
 	
@@ -33,31 +33,36 @@ extension NewsViewModel {
 		return Observable.just(article.urlToImage)
 	}
 	
-}
-
-struct NewsListViewModel {
-	
-	let articlesVm: [NewsViewModel]
 	
 }
 
-
-extension NewsListViewModel {
+struct NewsListViewModel  {
 	
-	init(_ articles: [Articles] ) {
-		self.articlesVm = articles.compactMap(NewsViewModel.init)
-	}
+	let articlesVM: [NewsViewModel]
+	
 	
 }
 
 extension NewsListViewModel  {
 	
-	
-	func newAt(_ index: Int) -> NewsViewModel {
-    return  articlesVm[index]
+	init(_ articles: [Articles]) {
+		articlesVM =  articles.compactMap(NewsViewModel.init)
 	}
+	
+}
+
+extension NewsListViewModel   {
+	
+	func elementAt(_ index: Int) -> NewsViewModel  {
+    
+		return articlesVM[index]
+ 
+	}
+	
 
 }
+
+
 
 
 

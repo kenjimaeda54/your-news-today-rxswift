@@ -23,19 +23,24 @@ class NewsAppController: UIViewController {
 	@IBOutlet weak var labCity: UILabel!
 	@IBOutlet weak var viewWeather: UIView!
 	@IBOutlet weak var activyIsLoading: UIActivityIndicatorView!
+	@IBOutlet weak var tableView: UITableView!
 	
 	//MARK: - Vars
 	var locationManager = CLLocationManager()
 	var apikeyWeather: String?
 	var apikeyNews: String?
 	var disposed = DisposeBag()
+	var articlesViewModel: NewsListViewModel!
 	
 	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		locationManager.delegate = self
+	
 		
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = 160
 		
 	  //MARK: - Environment
 		if let keyWeahter = ProcessInfo.processInfo.environment["API_KEY_WEATHER"] {
@@ -93,7 +98,13 @@ class NewsAppController: UIViewController {
 			
 			
 			URLRequest.load(resource).subscribe(onNext:{ response in
-				print(response.articles)
+					self.articlesViewModel = NewsListViewModel(response.articles)
+				print(response.articles, "articles")
+				DispatchQueue.main.async {
+					self.tableView.reloadData()
+					
+				}
+				
 			}).disposed(by: disposed)
 			
 		}
@@ -168,12 +179,31 @@ class NewsAppController: UIViewController {
 //MARK: - UITableViewDataSource,UITableViewDelegate
 extension NewsAppController: UITableViewDataSource,UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return articlesViewModel != nil ? articlesViewModel.articlesVM.count  : 0
+	}
+
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return UITableView.automaticDimension
 	}
 	
-	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "cellNews", for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cellNews", for: indexPath) as! NewsTableViewCell
+		
+		let article = articlesViewModel.elementAt(indexPath.row)
+		
+		article.title.asDriver(onErrorJustReturn: "").drive(
+			cell.labTitle.rx.text
+		).disposed(by: disposed)
+		
+		article.description.asDriver(onErrorJustReturn: "").drive(
+			cell.labDescription.rx.text
+		).disposed(by: disposed)
+		
+		article.urlToImage.subscribe(onNext:{ urlImage in
+			guard let img = urlImage else {return}
+			cell.prepareImg(img)
+		}).disposed(by: disposed)
+		
 		
 		return cell
 	}
@@ -239,4 +269,6 @@ extension NewsAppController: CLLocationManagerDelegate {
 	
 	
 }
+
+
 

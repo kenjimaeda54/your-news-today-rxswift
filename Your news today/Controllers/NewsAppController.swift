@@ -19,8 +19,10 @@ class NewsAppController: UIViewController {
 	@IBOutlet weak var labTemperature: UILabel!
 	@IBOutlet weak var labDayMonth: UILabel!
 	@IBOutlet weak var imgIconWeather: UIImageView!
+	@IBOutlet weak var viewIsLoading: UIView!
 	@IBOutlet weak var labCity: UILabel!
 	@IBOutlet weak var viewWeather: UIView!
+	@IBOutlet weak var activyIsLoading: UIActivityIndicatorView!
 	
 	//MARK: - Vars
 	var locationManager = CLLocationManager()
@@ -32,7 +34,8 @@ class NewsAppController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		locationManager.delegate = self
-		
+	
+		activyIsLoading.startAnimating()
 		viewWeather.layer.cornerRadius = 7
 		viewWeather.layer.shadowOffset.height = 4
 		viewWeather.layer.shadowColor = UIColor.black.cgColor
@@ -106,6 +109,8 @@ class NewsAppController: UIViewController {
 				
 				DispatchQueue.main.async {
 					self.imgIconWeather.image = UIImage(data: data)
+					self.viewIsLoading.isHidden = true
+					self.activyIsLoading.stopAnimating()
 				}
 				
 			}
